@@ -50,14 +50,18 @@ app.use('/', productoRutas);
 
 // --- CHAT EN TIEMPO REAL (Punto 10) ---
 io.on('connection', (socket) => {
-    console.log('Usuario conectado al chat');
-    socket.on('mensaje_chat', (data) => {
-        io.emit('mensaje_chat', data);
+    console.log('Usuario conectado en el chat');
+    socket.on('mensaje-chat', (msg) => {
+        io.emit('mensaje-chat', msg);
+    });
+   
+    socket.on('disconnect', () => {
+        console.log('Usuario desconectado');
     });
 });
 
 // --- INICIAR SERVIDOR ---
 const PORT = 3000;
 server.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor y Chat corriendo en http://localhost:${PORT}`);
 });

@@ -1,0 +1,50 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Soporte Técnico en Vivo</h5>
+                </div>
+                <div class="card-body" id="caja-mensajes" style="height: 400px; overflow-y: auto; background: #f8f9fa;">
+                    <!-- Aquí se verán los mensajes -->
+                    <div class="text-center text-muted small">Bienvenido al chat de soporte</div>
+                </div>
+                <div class="card-footer">
+                    <form id="form-chat" class="d-flex">
+                        <input type="text" id="input-msg" class="form-control me-2" placeholder="Escribe tu mensaje aquí..." autocomplete="off">
+                        <button class="btn btn-primary">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Importamos el cliente de socket.io que Node genera automáticamente -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+    const form = document.getElementById('form-chat');
+    const input = document.getElementById('input-msg');
+    const caja = document.getElementById('caja-mensajes');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (input.value) {
+            // Enviamos el mensaje al servidor
+            socket.emit('mensaje-chat', input.value);
+            input.value = '';
+        }
+    });
+
+    // Escuchamos cuando el servidor nos envía un mensaje
+    socket.on('mensaje-chat', (msg) => {
+        const div = document.createElement('div');
+        div.classList.add('p-2', 'my-2', 'bg-white', 'border', 'rounded', 'shadow-sm');
+        div.innerHTML = `<strong>Usuario:</strong> ${msg}`;
+        caja.appendChild(div);
+        
+        // Auto-scroll hacia abajo
+        caja.scrollTop = caja.scrollHeight;
+    });
+</script>

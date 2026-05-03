@@ -18,4 +18,8 @@ router.get('/eliminar/:id', estaLogueado, productoControl.eliminarProducto);
 router.get('/editar/:id', estaLogueado, productoControl.formularioEditar);
 router.post('/editar/:id', estaLogueado, productoControl.actualizarProducto);
 
+router.get('/chat', estaLogueado, (req, res) => {
+    res.render('chat');
+});
+
 module.exports = router;

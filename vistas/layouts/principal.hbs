@@ -17,11 +17,10 @@
             <a class="nav-link" href="/">Inicio</a>
 
             {{#if logueado}}
-                <!-- Si estoy logueado, veo estas opciones -->
+                <a class="nav-link" href="/chat">Chat de Soporte</a>
                 <a class="nav-link" href="/agregar">Agregar Producto</a>
                 <a class="nav-link" href="/logout">Salir</a>
             {{else}}
-                <!-- Si NO estoy logueado, solo veo Entrar -->
                 <a class="nav-link" href="/login">Entrar</a>
             {{/if}}
         </div>
