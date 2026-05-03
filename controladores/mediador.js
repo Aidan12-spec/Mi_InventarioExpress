@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-   //Verifica si existe el usuario
+   //Verifica si el usuario existe
     if (req.session.usuarioId) {
         return next();
     }

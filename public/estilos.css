@@ -1,0 +1,36 @@
+body {
+    background-color: lightgreen;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-link {
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: lightgreen !important;
+    text-decoration: underline;
+}
+
+.card {
+    border: 10px;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.table {
+    background-color: skyblue;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#caja-mensajes div {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #e9ecef;
+}

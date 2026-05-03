@@ -12,20 +12,18 @@ const io = new Server(server);
 const authRutas = require('./rutas/rutasAuth');
 const productoRutas = require('./rutas/rutasProducto');
 
-// --- CONFIGURACIÓN ---
-// Middlewares para leer datos de formularios
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Archivos estáticos (CSS, JS cliente, Imágenes)
+//Archivo estatico
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Motor de plantillas Handlebars
+//Plantillas
 app.engine('.hbs', engine({ extname: '.hbs', defaultLayout: 'principal' }));
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'vistas'));
 
-// Sesiones de usuario (Punto 7)
+//Sesion del usuario
 app.use(session({
     secret: 'mi_clave_secreta',
     resave: false,
@@ -33,7 +31,7 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-    //Si existe usuarioId, logueado será verdadera
+    //Si existe usuarioId, logueado será true sino false
     res.locals.logueado = req.session.usuarioId ? true : false;
     next();
 });
@@ -42,13 +40,13 @@ mongoose.connect(DB_URI)
     .then(() => console.log('Conectado a MongoDB'))
     .catch(err => console.error('Error de conexión:', err));
 
-// --- RUTAS ---
+//Rutas
 app.use('/', require('./rutas/rutasProducto'));
 app.use('/', require('./rutas/rutasAuth'));
 app.use('/', authRutas);
 app.use('/', productoRutas);
 
-// --- CHAT EN TIEMPO REAL (Punto 10) ---
+//Chat en tiempo real
 io.on('connection', (socket) => {
     console.log('Usuario conectado en el chat');
     socket.on('mensaje-chat', (msg) => {
@@ -60,7 +58,6 @@ io.on('connection', (socket) => {
     });
 });
 
-// --- INICIAR SERVIDOR ---
 const PORT = 3000;
 server.listen(PORT, () => {
     console.log(`Servidor y Chat corriendo en http://localhost:${PORT}`);
